@@ -1,751 +1,254 @@
-/* =====================================================
-   TASKFLOW
-   Intermediate ShadowFox Project
-   ===================================================== */
+/* =========================================
+   SAKTHI DENTAL CLINIC
+   Interactive JavaScript
+========================================= */
 
 
-/* =====================================================
-   DOM ELEMENTS
-   ===================================================== */
+/* =========================================
+   MOBILE NAVIGATION
+========================================= */
 
-const taskList = document.getElementById("taskList");
-const emptyState = document.getElementById("emptyState");
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
+const navLinks = document.querySelectorAll(".nav-link");
 
-const totalTasks = document.getElementById("totalTasks");
-const pendingTasks = document.getElementById("pendingTasks");
-const completedTasks = document.getElementById("completedTasks");
-const progressPercent = document.getElementById("progressPercent");
+menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("show");
 
-const addTaskButton = document.getElementById("addTaskButton");
+    const icon = menuToggle.querySelector("i");
 
-const taskModal = document.getElementById("taskModal");
-const modalOverlay = document.getElementById("modalOverlay");
-
-const closeModal = document.getElementById("closeModal");
-const cancelButton = document.getElementById("cancelButton");
-
-const taskForm = document.getElementById("taskForm");
-
-const taskId = document.getElementById("taskId");
-const taskTitle = document.getElementById("taskTitle");
-const taskDescription = document.getElementById("taskDescription");
-const taskPriority = document.getElementById("taskPriority");
-const taskDate = document.getElementById("taskDate");
-
-const modalTitle = document.getElementById("modalTitle");
-
-const searchInput = document.getElementById("searchInput");
-const priorityFilter = document.getElementById("priorityFilter");
-
-const themeToggle = document.getElementById("themeToggle");
-
-const navItems = document.querySelectorAll(".nav-item");
+    if (navMenu.classList.contains("show")) {
+        icon.classList.remove("fa-bars");
+        icon.classList.add("fa-xmark");
+    } else {
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+    }
+});
 
 
-/* =====================================================
-   APPLICATION STATE
-   ===================================================== */
+navLinks.forEach((link) => {
 
-let tasks = JSON.parse(
-    localStorage.getItem("taskflow_tasks")
-) || [];
+    link.addEventListener("click", () => {
 
-let currentFilter = "all";
+        navMenu.classList.remove("show");
 
+        const icon = menuToggle.querySelector("i");
 
-/* =====================================================
-   INITIALIZATION
-   ===================================================== */
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    loadTheme();
-
-    renderTasks();
+    });
 
 });
 
 
-/* =====================================================
-   LOCAL STORAGE
-   ===================================================== */
+/* =========================================
+   ACTIVE NAVIGATION LINK
+========================================= */
 
-function saveTasks() {
+const sections = document.querySelectorAll("main section[id]");
 
-    localStorage.setItem(
-        "taskflow_tasks",
-        JSON.stringify(tasks)
-    );
+function updateActiveLink() {
+
+    const scrollPosition = window.scrollY + 150;
+
+    sections.forEach((section) => {
+
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute("id");
+
+        if (
+            scrollPosition >= sectionTop &&
+            scrollPosition < sectionTop + sectionHeight
+        ) {
+
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+
+                if (link.getAttribute("href") === `#${sectionId}`) {
+                    link.classList.add("active");
+                }
+            });
+
+        }
+
+    });
 
 }
 
+window.addEventListener("scroll", updateActiveLink);
 
-/* =====================================================
-   RENDER TASKS
-   ===================================================== */
 
-function renderTasks() {
+/* =========================================
+   FAQ ACCORDION
+========================================= */
 
-    const filteredTasks = getFilteredTasks();
+const faqQuestions = document.querySelectorAll(".faq-question");
 
-    taskList.innerHTML = "";
+faqQuestions.forEach((question) => {
 
-    if (filteredTasks.length === 0) {
+    question.addEventListener("click", () => {
 
-        emptyState.classList.remove("hidden");
+        const currentItem = question.parentElement;
 
-    } else {
+        document.querySelectorAll(".faq-item").forEach((item) => {
 
-        emptyState.classList.add("hidden");
-
-        filteredTasks.forEach(task => {
-
-            const taskElement = createTaskElement(task);
-
-            taskList.appendChild(taskElement);
+            if (item !== currentItem) {
+                item.classList.remove("open");
+            }
 
         });
 
-    }
-
-    updateStatistics();
-
-}
-
-
-/* =====================================================
-   FILTER LOGIC
-   ===================================================== */
-
-function getFilteredTasks() {
-
-    const searchTerm =
-        searchInput.value.trim().toLowerCase();
-
-    const selectedPriority =
-        priorityFilter.value;
-
-
-    return tasks.filter(task => {
-
-        const matchesSearch =
-            task.title.toLowerCase().includes(searchTerm) ||
-            task.description.toLowerCase().includes(searchTerm);
-
-
-        const matchesPriority =
-            selectedPriority === "all" ||
-            task.priority === selectedPriority;
-
-
-        let matchesStatus = true;
-
-
-        if (currentFilter === "pending") {
-
-            matchesStatus = !task.completed;
-
-        }
-
-
-        if (currentFilter === "completed") {
-
-            matchesStatus = task.completed;
-
-        }
-
-
-        return (
-            matchesSearch &&
-            matchesPriority &&
-            matchesStatus
-        );
+        currentItem.classList.toggle("open");
 
     });
-
-}
-
-
-/* =====================================================
-   CREATE TASK ELEMENT
-   ===================================================== */
-
-function createTaskElement(task) {
-
-    const article = document.createElement("article");
-
-    article.className = "task-card";
-
-    if (task.completed) {
-
-        article.classList.add("completed");
-
-    }
-
-
-    const formattedDate =
-        formatDate(task.dueDate);
-
-
-    article.innerHTML = `
-
-        <div class="task-main">
-
-            <button
-                class="check-button"
-                data-action="toggle"
-                data-id="${task.id}"
-                aria-label="Toggle task completion"
-            >
-                ${task.completed ? "✓" : ""}
-            </button>
-
-
-            <div class="task-content">
-
-                <div class="task-title">
-                    ${escapeHTML(task.title)}
-                </div>
-
-                <div class="task-description">
-                    ${escapeHTML(task.description || "No description added.")}
-                </div>
-
-
-                <div class="task-meta">
-
-                    <span class="badge ${task.priority}">
-                        ${task.priority}
-                    </span>
-
-                    ${
-                        formattedDate
-                            ? `<span class="due-date">
-                                Due ${formattedDate}
-                               </span>`
-                            : ""
-                    }
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="task-actions">
-
-            <button
-                class="icon-button"
-                data-action="edit"
-                data-id="${task.id}"
-                aria-label="Edit task"
-            >
-                ✎
-            </button>
-
-            <button
-                class="icon-button delete"
-                data-action="delete"
-                data-id="${task.id}"
-                aria-label="Delete task"
-            >
-                ×
-            </button>
-
-        </div>
-
-    `;
-
-
-    return article;
-
-}
-
-
-/* =====================================================
-   TASK ACTIONS
-   ===================================================== */
-
-taskList.addEventListener("click", event => {
-
-    const button =
-        event.target.closest("[data-action]");
-
-
-    if (!button) return;
-
-
-    const action = button.dataset.action;
-
-    const id = button.dataset.id;
-
-
-    if (action === "toggle") {
-
-        toggleTask(id);
-
-    }
-
-
-    if (action === "edit") {
-
-        editTask(id);
-
-    }
-
-
-    if (action === "delete") {
-
-        deleteTask(id);
-
-    }
 
 });
 
 
-/* =====================================================
-   TOGGLE TASK
-   ===================================================== */
+/* =========================================
+   CONTACT FORM VALIDATION
+========================================= */
 
-function toggleTask(id) {
+const contactForm = document.getElementById("contactForm");
+const formSuccess = document.getElementById("formSuccess");
 
-    tasks = tasks.map(task => {
-
-        if (task.id === id) {
-
-            return {
-                ...task,
-                completed: !task.completed
-            };
-
-        }
-
-        return task;
-
-    });
-
-
-    saveTasks();
-
-    renderTasks();
-
-}
-
-
-/* =====================================================
-   DELETE TASK
-   ===================================================== */
-
-function deleteTask(id) {
-
-    const confirmed =
-        confirm("Delete this task?");
-
-
-    if (!confirmed) return;
-
-
-    tasks = tasks.filter(
-        task => task.id !== id
-    );
-
-
-    saveTasks();
-
-    renderTasks();
-
-}
-
-
-/* =====================================================
-   OPEN MODAL
-   ===================================================== */
-
-function openModal(task = null) {
-
-    taskModal.classList.remove("hidden");
-
-
-    if (task) {
-
-        modalTitle.textContent = "Edit Task";
-
-        taskId.value = task.id;
-
-        taskTitle.value = task.title;
-
-        taskDescription.value =
-            task.description;
-
-        taskPriority.value =
-            task.priority;
-
-        taskDate.value =
-            task.dueDate || "";
-
-    } else {
-
-        modalTitle.textContent = "Create Task";
-
-        taskForm.reset();
-
-        taskId.value = "";
-
-        taskPriority.value = "medium";
-
-    }
-
-
-    setTimeout(() => {
-
-        taskTitle.focus();
-
-    }, 100);
-
-}
-
-
-/* =====================================================
-   CLOSE MODAL
-   ===================================================== */
-
-function closeTaskModal() {
-
-    taskModal.classList.add("hidden");
-
-    taskForm.reset();
-
-    taskId.value = "";
-
-}
-
-
-/* =====================================================
-   ADD TASK
-   ===================================================== */
-
-addTaskButton.addEventListener("click", () => {
-
-    openModal();
-
-});
-
-
-/* =====================================================
-   EDIT TASK
-   ===================================================== */
-
-function editTask(id) {
-
-    const task =
-        tasks.find(task => task.id === id);
-
-
-    if (!task) return;
-
-
-    openModal(task);
-
-}
-
-
-/* =====================================================
-   FORM SUBMISSION
-   ===================================================== */
-
-taskForm.addEventListener("submit", event => {
+contactForm.addEventListener("submit", (event) => {
 
     event.preventDefault();
 
+    const name = document.getElementById("name");
+    const email = document.getElementById("email");
+    const phone = document.getElementById("phone");
+    const message = document.getElementById("message");
 
-    const title =
-        taskTitle.value.trim();
+    let isValid = true;
 
-    const description =
-        taskDescription.value.trim();
-
-    const priority =
-        taskPriority.value;
-
-    const dueDate =
-        taskDate.value;
+    clearErrors();
 
 
-    if (!title) {
+    /* Name validation */
 
-        alert("Please enter a task title.");
+    if (name.value.trim().length < 2) {
 
-        return;
+        showError(
+            name,
+            "Please enter your name."
+        );
+
+        isValid = false;
 
     }
 
 
-    if (taskId.value) {
+    /* Email validation */
 
-        tasks = tasks.map(task => {
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (task.id === taskId.value) {
+    if (
+        email.value.trim() === "" ||
+        !emailPattern.test(email.value.trim())
+    ) {
 
-                return {
-                    ...task,
-                    title,
-                    description,
-                    priority,
-                    dueDate
-                };
+        showError(
+            email,
+            "Please enter a valid email address."
+        );
 
+        isValid = false;
+
+    }
+
+
+    /* Phone validation */
+
+    const phonePattern =
+        /^[0-9+\-\s()]{10,15}$/;
+
+    if (
+        phone.value.trim() === "" ||
+        !phonePattern.test(phone.value.trim())
+    ) {
+
+        showError(
+            phone,
+            "Please enter a valid phone number."
+        );
+
+        isValid = false;
+
+    }
+
+
+    /* Submit */
+
+    if (isValid) {
+
+        formSuccess.textContent =
+            "Thank you! Your message has been submitted successfully.";
+
+        contactForm.reset();
+
+        setTimeout(() => {
+            formSuccess.textContent = "";
+        }, 5000);
+
+    }
+
+});
+
+
+/* =========================================
+   FORM ERROR HELPERS
+========================================= */
+
+function showError(input, message) {
+
+    const formGroup = input.parentElement;
+
+    formGroup.classList.add("error");
+
+    const errorMessage =
+        formGroup.querySelector(".error-message");
+
+    errorMessage.textContent = message;
+
+}
+
+
+function clearErrors() {
+
+    document
+        .querySelectorAll(".form-group")
+        .forEach((group) => {
+
+            group.classList.remove("error");
+
+            const errorMessage =
+                group.querySelector(".error-message");
+
+            if (errorMessage) {
+                errorMessage.textContent = "";
             }
-
-            return task;
 
         });
 
-    } else {
-
-        const newTask = {
-
-            id: Date.now().toString(),
-
-            title,
-
-            description,
-
-            priority,
-
-            dueDate,
-
-            completed: false,
-
-            createdAt:
-                new Date().toISOString()
-
-        };
-
-
-        tasks.unshift(newTask);
-
-    }
-
-
-    saveTasks();
-
-    renderTasks();
-
-    closeTaskModal();
-
-});
-
-
-/* =====================================================
-   MODAL EVENTS
-   ===================================================== */
-
-closeModal.addEventListener(
-    "click",
-    closeTaskModal
-);
-
-
-cancelButton.addEventListener(
-    "click",
-    closeTaskModal
-);
-
-
-modalOverlay.addEventListener(
-    "click",
-    closeTaskModal
-);
-
-
-document.addEventListener("keydown", event => {
-
-    if (
-        event.key === "Escape" &&
-        !taskModal.classList.contains("hidden")
-    ) {
-
-        closeTaskModal();
-
-    }
-
-});
-
-
-/* =====================================================
-   SEARCH
-   ===================================================== */
-
-searchInput.addEventListener(
-    "input",
-    renderTasks
-);
-
-
-/* =====================================================
-   PRIORITY FILTER
-   ===================================================== */
-
-priorityFilter.addEventListener(
-    "change",
-    renderTasks
-);
-
-
-/* =====================================================
-   STATUS FILTER
-   ===================================================== */
-
-navItems.forEach(item => {
-
-    item.addEventListener("click", () => {
-
-        navItems.forEach(nav =>
-            nav.classList.remove("active")
-        );
-
-
-        item.classList.add("active");
-
-
-        currentFilter =
-            item.dataset.filter;
-
-
-        renderTasks();
-
-    });
-
-});
-
-
-/* =====================================================
-   STATISTICS
-   ===================================================== */
-
-function updateStatistics() {
-
-    const total = tasks.length;
-
-
-    const completed =
-        tasks.filter(task => task.completed).length;
-
-
-    const pending =
-        total - completed;
-
-
-    const progress =
-        total === 0
-            ? 0
-            : Math.round((completed / total) * 100);
-
-
-    totalTasks.textContent = total;
-
-    pendingTasks.textContent = pending;
-
-    completedTasks.textContent = completed;
-
-    progressPercent.textContent =
-        `${progress}%`;
-
 }
 
 
-/* =====================================================
-   DATE FORMATTER
-   ===================================================== */
+/* =========================================
+   CURRENT YEAR
+========================================= */
 
-function formatDate(dateString) {
-
-    if (!dateString) return "";
-
-
-    const date =
-        new Date(`${dateString}T00:00:00`);
+document.getElementById("year").textContent =
+    new Date().getFullYear();
 
 
-    if (Number.isNaN(date.getTime())) {
+/* =========================================
+   INITIALIZE
+========================================= */
 
-        return "";
-
-    }
-
-
-    return date.toLocaleDateString(
-        "en-IN",
-        {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-        }
-    );
-
-}
-
-
-/* =====================================================
-   HTML SECURITY
-   ===================================================== */
-
-function escapeHTML(value) {
-
-    const div =
-        document.createElement("div");
-
-
-    div.textContent = value;
-
-
-    return div.innerHTML;
-
-}
-
-
-/* =====================================================
-   THEME
-   ===================================================== */
-
-themeToggle.addEventListener("click", () => {
-
-    document.body.classList.toggle("dark");
-
-
-    const isDark =
-        document.body.classList.contains("dark");
-
-
-    localStorage.setItem(
-        "taskflow_theme",
-        isDark ? "dark" : "light"
-    );
-
-
-    themeToggle.textContent =
-        isDark ? "☀" : "☾";
-
-});
-
-
-function loadTheme() {
-
-    const savedTheme =
-        localStorage.getItem("taskflow_theme");
-
-
-    if (savedTheme === "dark") {
-
-        document.body.classList.add("dark");
-
-        themeToggle.textContent = "☀";
-
-    } else {
-
-        themeToggle.textContent = "☾";
-
-    }
-
-}
+updateActiveLink();

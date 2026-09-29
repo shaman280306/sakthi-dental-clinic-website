@@ -2,20 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <meta
         name="description"
-        content="TaskFlow - A modern task management dashboard built with HTML, CSS and JavaScript."
+        content="Sakthi Dental Clinic provides compassionate, expert-led dental care for women, children and families in Hosur."
     >
 
-    <title>TaskFlow | Task Management Dashboard</title>
+    <meta
+        name="keywords"
+        content="Sakthi Dental Clinic, dentist Hosur, dental care, braces, implants, teeth cleaning, orthodontics"
+    >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="author" content="Shaman Sharma">
+
+    <title>Sakthi Dental Clinic | Specialized Dental Care in Hosur</title>
+
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
         rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
     <link rel="stylesheet" href="style.css">
@@ -23,309 +48,1236 @@
 
 <body>
 
-    <div class="app">
+    <!-- =========================
+         HEADER
+    ========================== -->
 
-        <!-- ================= SIDEBAR ================= -->
+    <header class="header" id="home">
 
-        <aside class="sidebar">
+        <nav class="navbar container">
 
-            <div class="brand">
-                <div class="brand-logo">T</div>
+            <a href="#home" class="logo">
+                <span class="logo-icon">
+                    <i class="fa-solid fa-tooth"></i>
+                </span>
 
-                <div>
-                    <h1>TaskFlow</h1>
-                    <span>Productivity Hub</span>
-                </div>
+                <span>
+                    Sakthi
+                    <strong>Dental Clinic</strong>
+                </span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Open navigation menu"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="nav-menu" id="navMenu">
+
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#treatments" class="nav-link">Treatments</a>
+                <a href="#facilities" class="nav-link">Facilities</a>
+                <a href="#faq" class="nav-link">FAQs</a>
+                <a href="#contact" class="nav-link">Contact</a>
+
+                <a href="#contact" class="nav-cta">
+                    Fix an Appointment
+                </a>
+
             </div>
 
-            <nav class="navigation">
+        </nav>
 
-                <button class="nav-item active" data-filter="all">
-                    <span>◉</span>
-                    <span>All Tasks</span>
-                </button>
-
-                <button class="nav-item" data-filter="pending">
-                    <span>○</span>
-                    <span>Pending</span>
-                </button>
-
-                <button class="nav-item" data-filter="completed">
-                    <span>✓</span>
-                    <span>Completed</span>
-                </button>
-
-            </nav>
-
-            <div class="sidebar-footer">
-                <span>ShadowFox</span>
-                <small>Intermediate Project</small>
-            </div>
-
-        </aside>
+    </header>
 
 
-        <!-- ================= MAIN CONTENT ================= -->
+    <main>
 
-        <main class="main-content">
+        <!-- =========================
+             HERO
+        ========================== -->
 
-            <!-- Header -->
+        <section class="hero section">
 
-            <header class="topbar">
+            <div class="container hero-grid">
 
-                <div>
-                    <p class="eyebrow">PRODUCTIVITY DASHBOARD</p>
-                    <h2>Good to see you.</h2>
-                    <p class="subtitle">
-                        Organize your work. Track your progress. Get things done.
+                <div class="hero-content">
+
+                    <span class="eyebrow">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                        Trusted Dental Care in Hosur
+                    </span>
+
+                    <h1>
+                        Specialized Dental Care for
+                        <span>Women, Children & Families.</span>
+                    </h1>
+
+                    <p class="hero-text">
+                        Experience compassionate, expert-led dental services
+                        tailored to your needs, all in a modern and welcoming
+                        environment.
                     </p>
-                </div>
 
-                <button id="themeToggle" class="theme-button" aria-label="Toggle theme">
-                    ☾
-                </button>
+                    <div class="hero-actions">
 
-            </header>
+                        <a href="#contact" class="btn btn-primary">
+                            Fix an Appointment
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
-
-            <!-- ================= STATISTICS ================= -->
-
-            <section class="stats-grid">
-
-                <div class="stat-card">
-                    <div class="stat-icon blue">T</div>
-
-                    <div>
-                        <span>Total Tasks</span>
-                        <strong id="totalTasks">0</strong>
-                    </div>
-                </div>
-
-
-                <div class="stat-card">
-                    <div class="stat-icon orange">P</div>
-
-                    <div>
-                        <span>Pending</span>
-                        <strong id="pendingTasks">0</strong>
-                    </div>
-                </div>
-
-
-                <div class="stat-card">
-                    <div class="stat-icon green">✓</div>
-
-                    <div>
-                        <span>Completed</span>
-                        <strong id="completedTasks">0</strong>
-                    </div>
-                </div>
-
-
-                <div class="stat-card">
-                    <div class="stat-icon purple">%</div>
-
-                    <div>
-                        <span>Progress</span>
-                        <strong id="progressPercent">0%</strong>
-                    </div>
-                </div>
-
-            </section>
-
-
-            <!-- ================= TASK SECTION ================= -->
-
-            <section class="task-section">
-
-                <div class="section-header">
-
-                    <div>
-                        <p class="eyebrow">YOUR WORKSPACE</p>
-                        <h3>Tasks</h3>
-                    </div>
-
-                    <button id="addTaskButton" class="primary-button">
-                        <span>+</span>
-                        Add Task
-                    </button>
-
-                </div>
-
-
-                <!-- Search and filters -->
-
-                <div class="toolbar">
-
-                    <div class="search-box">
-
-                        <span>⌕</span>
-
-                        <input
-                            type="text"
-                            id="searchInput"
-                            placeholder="Search tasks..."
-                            autocomplete="off"
-                        >
+                        <a href="tel:+919862890897" class="btn btn-secondary">
+                            <i class="fa-solid fa-phone"></i>
+                            Emergency Support
+                        </a>
 
                     </div>
 
+                    <div class="hero-trust">
 
-                    <select id="priorityFilter" class="filter-select">
+                        <div class="trust-item">
+                            <i class="fa-solid fa-user-doctor"></i>
+                            <div>
+                                <strong>20+ Years</strong>
+                                <span>Clinical Experience</span>
+                            </div>
+                        </div>
 
-                        <option value="all">All Priorities</option>
-                        <option value="high">High Priority</option>
-                        <option value="medium">Medium Priority</option>
-                        <option value="low">Low Priority</option>
+                        <div class="trust-item">
+                            <i class="fa-solid fa-clock"></i>
+                            <div>
+                                <strong>9 AM – 7 PM</strong>
+                                <span>Daily Availability</span>
+                            </div>
+                        </div>
 
-                    </select>
+                    </div>
 
                 </div>
 
 
-                <!-- Task list -->
+                <div class="hero-visual">
 
-                <div id="taskList" class="task-list"></div>
+                    <div class="hero-card">
+
+                        <div class="hero-image-placeholder">
+                            <i class="fa-solid fa-tooth"></i>
+                        </div>
+
+                        <div class="hero-floating-card">
+
+                            <div class="floating-icon">
+                                <i class="fa-solid fa-shield-heart"></i>
+                            </div>
+
+                            <div>
+                                <strong>Always in safe hands.</strong>
+                                <span>Comfort • Care • Confidence</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
 
 
-                <!-- Empty state -->
+        <!-- =========================
+             ASSURANCE BANNER
+        ========================== -->
 
-                <div id="emptyState" class="empty-state hidden">
+        <section class="assurance">
 
-                    <div class="empty-icon">✓</div>
+            <div class="container assurance-inner">
 
-                    <h4>No tasks found</h4>
+                <div class="assurance-icon">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div>
+                    <strong>You are always in safe hands.</strong>
+                    <p>We are ready to help, anytime.</p>
+                </div>
+
+                <a href="#contact">
+                    Talk to our team
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             WHY CHOOSE US
+        ========================== -->
+
+        <section class="section" id="about">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        WHY CHOOSE US
+                    </span>
+
+                    <h2>
+                        Care designed around
+                        <span>you.</span>
+                    </h2>
 
                     <p>
-                        Create a task or change your filters to see your work.
+                        We combine modern dental technology with a warm,
+                        patient-first approach to make every visit comfortable
+                        and transparent.
                     </p>
 
                 </div>
 
-            </section>
 
-        </main>
+                <div class="feature-grid">
 
-    </div>
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-house-medical"></i>
+                        </div>
+
+                        <h3>All-in-One Care</h3>
+
+                        <p>
+                            From general dentistry to specialized treatments,
+                            comprehensive care is available under one roof.
+                        </p>
+
+                    </article>
 
 
-    <!-- ================= TASK MODAL ================= -->
+                    <article class="feature-card">
 
-    <div id="taskModal" class="modal hidden">
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </div>
 
-        <div class="modal-overlay" id="modalOverlay"></div>
+                        <h3>Experienced Doctors</h3>
 
-        <div class="modal-card">
+                        <p>
+                            Professionally trained dentists committed to
+                            personalized patient care and comfort.
+                        </p>
 
-            <div class="modal-header">
+                    </article>
 
-                <div>
-                    <p class="eyebrow">TASK MANAGER</p>
-                    <h3 id="modalTitle">Create Task</h3>
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+
+                        <h3>Patient-Centric</h3>
+
+                        <p>
+                            Comfort, safety and transparency remain at the
+                            center of every treatment we provide.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+
+                        <h3>Technology-Driven</h3>
+
+                        <p>
+                            Modern tools and equipment support precision,
+                            safety and efficient dental treatment.
+                        </p>
+
+                    </article>
+
                 </div>
 
-                <button id="closeModal" class="close-button">
-                    ×
-                </button>
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ABOUT DOCTOR
+        ========================== -->
+
+        <section class="about-section">
+
+            <div class="container about-grid">
+
+                <div class="about-visual">
+
+                    <div class="doctor-card">
+
+                        <div class="doctor-avatar">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </div>
+
+                        <span>FOUNDER</span>
+
+                        <h3>Dr. Anupriya</h3>
+
+                        <p>
+                            Trusted Partner in Dental Care
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="about-content">
+
+                    <span class="section-label">
+                        ABOUT SAKTHI DENTAL CLINIC
+                    </span>
+
+                    <h2>
+                        Expertise built on
+                        <span>experience and care.</span>
+                    </h2>
+
+                    <p>
+                        Bringing over 20 years of expertise, Dr. Anupriya
+                        stands as a leading figure in modern dentistry at
+                        Hosur.
+                    </p>
+
+                    <p>
+                        She began her professional journey after graduating
+                        in 2000 and spent six impactful years at Mathura
+                        Clinic, where she refined her clinical skills and
+                        strengthened her commitment to patient wellbeing.
+                    </p>
+
+                    <p>
+                        In 2004, Dr. Anupriya established Sakthi Dental Clinic
+                        in Hosur with a clear vision to make high-quality
+                        dental care accessible to all.
+                    </p>
+
+                    <div class="about-stats">
+
+                        <div>
+                            <strong>20+</strong>
+                            <span>Years of expertise</span>
+                        </div>
+
+                        <div>
+                            <strong>9+</strong>
+                            <span>Dental specialists</span>
+                        </div>
+
+                        <div>
+                            <strong>9–7</strong>
+                            <span>Daily clinic hours</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TREATMENTS
+        ========================== -->
+
+        <section class="section" id="treatments">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        OUR CORE TREATMENTS
+                    </span>
+
+                    <h2>
+                        Explore our
+                        <span>services.</span>
+                    </h2>
+
+                    <p>
+                        Comprehensive dental solutions designed to support
+                        preventive, restorative and cosmetic oral care.
+                    </p>
+
+                </div>
+
+
+                <div class="treatment-grid">
+
+                    <article class="treatment-card">
+
+                        <div class="treatment-number">01</div>
+
+                        <div class="treatment-icon">
+                            <i class="fa-solid fa-tooth"></i>
+                        </div>
+
+                        <h3>Tooth Extraction</h3>
+
+                        <p>
+                            Gentle extraction procedures focused on patient
+                            comfort and a smooth recovery.
+                        </p>
+
+                        <a href="#contact">
+                            Learn more
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </article>
+
+
+                    <article class="treatment-card">
+
+                        <div class="treatment-number">02</div>
+
+                        <div class="treatment-icon">
+                            <i class="fa-solid fa-teeth"></i>
+                        </div>
+
+                        <h3>Artificial Complete Denture</h3>
+
+                        <p>
+                            Customized complete dentures designed to restore
+                            function, appearance and confidence.
+                        </p>
+
+                        <a href="#contact">
+                            Learn more
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </article>
+
+
+                    <article class="treatment-card">
+
+                        <div class="treatment-number">03</div>
+
+                        <div class="treatment-icon">
+                            <i class="fa-solid fa-tooth"></i>
+                        </div>
+
+                        <h3>Tooth Filling</h3>
+
+                        <p>
+                            High-quality restorative care for cavities,
+                            damage and worn tooth structures.
+                        </p>
+
+                        <a href="#contact">
+                            Learn more
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </article>
+
+
+                    <article class="treatment-card">
+
+                        <div class="treatment-number">04</div>
+
+                        <div class="treatment-icon">
+                            <i class="fa-solid fa-sparkles"></i>
+                        </div>
+
+                        <h3>Teeth Cleaning</h3>
+
+                        <p>
+                            Professional scaling and cleaning to remove
+                            plaque and support healthy gums.
+                        </p>
+
+                        <a href="#contact">
+                            Learn more
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </article>
+
+
+                    <article class="treatment-card">
+
+                        <div class="treatment-number">05</div>
+
+                        <div class="treatment-icon">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+
+                        <h3>Bleaching</h3>
+
+                        <p>
+                            Professional teeth whitening solutions for a
+                            brighter and more confident smile.
+                        </p>
+
+                        <a href="#contact">
+                            Learn more
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </article>
+
+
+                    <article class="treatment-card">
+
+                        <div class="treatment-number">06</div>
+
+                        <div class="treatment-icon">
+                            <i class="fa-solid fa-teeth-open"></i>
+                        </div>
+
+                        <h3>Orthodontic Treatment</h3>
+
+                        <p>
+                            Braces and aligners designed to improve tooth
+                            alignment and create a healthier smile.
+                        </p>
+
+                        <a href="#contact">
+                            Learn more
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </article>
+
+                </div>
+
+
+                <div class="center-button">
+
+                    <a href="#all-treatments" class="btn btn-outline">
+                        View Full List of Treatments
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ADDITIONAL TREATMENTS
+        ========================== -->
+
+        <section class="additional-treatments" id="all-treatments">
+
+            <div class="container">
+
+                <div class="section-heading light">
+
+                    <span class="section-label">
+                        COMPLETE DENTAL CARE
+                    </span>
+
+                    <h2>
+                        More ways we can
+                        <span>help.</span>
+                    </h2>
+
+                </div>
+
+
+                <div class="additional-grid">
+
+                    <span>Dental Implants</span>
+                    <span>Laser Dentistry</span>
+                    <span>Root Canal Therapy</span>
+                    <span>Wisdom Tooth Extraction</span>
+                    <span>Fixed Partial Denture</span>
+                    <span>Teeth Whitening</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FACILITIES
+        ========================== -->
+
+        <section class="section facilities-section" id="facilities">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        CLINIC FACILITIES
+                    </span>
+
+                    <h2>
+                        Designed for your
+                        <span>comfort.</span>
+                    </h2>
+
+                    <p>
+                        Convenient facilities and patient-friendly support
+                        help make every visit easier.
+                    </p>
+
+                </div>
+
+
+                <div class="facility-grid">
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h3>Central Location</h3>
+                            <p>Conveniently located in Hosur.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-square-parking"></i>
+                        <div>
+                            <h3>Hassle-Free Parking</h3>
+                            <p>Parking facilities for visitors.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <div>
+                            <h3>Daily Availability</h3>
+                            <p>Sunday to Saturday, 9 AM – 7 PM.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-car"></i>
+                        <div>
+                            <h3>Pickup & Drop-off</h3>
+                            <p>Support for convenient transportation.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="facility-item">
+                        <i class="fa-solid fa-wheelchair"></i>
+                        <div>
+                            <h3>Wheelchair Access</h3>
+                            <p>Accessibility-focused clinic facilities.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TESTIMONIALS
+        ========================== -->
+
+        <section class="testimonials section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        PATIENT EXPERIENCES
+                    </span>
+
+                    <h2>
+                        What our patients
+                        <span>say.</span>
+                    </h2>
+
+                </div>
+
+
+                <div class="testimonial-grid">
+
+                    <article class="testimonial-card">
+
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+
+                        <p>
+                            “The doctors are extremely kind and attentive.
+                            My braces treatment is progressing really well.”
+                        </p>
+
+                        <div class="testimonial-author">
+                            <div class="author-avatar">M</div>
+
+                            <div>
+                                <strong>Manisha M</strong>
+                                <span>Patient</span>
+                            </div>
+                        </div>
+
+                    </article>
+
+
+                    <article class="testimonial-card featured">
+
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+
+                        <p>
+                            “I got my teeth cleaned and whitened here, and
+                            the results were amazing. The staff is so humble
+                            and professional.”
+                        </p>
+
+                        <div class="testimonial-author">
+                            <div class="author-avatar">A</div>
+
+                            <div>
+                                <strong>Mr. Arun Kumar</strong>
+                                <span>Patient</span>
+                            </div>
+                        </div>
+
+                    </article>
+
+
+                    <article class="testimonial-card">
+
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+
+                        <p>
+                            “Their attention to detail is outstanding. My
+                            daughter's braces journey has been smooth from
+                            consultation to follow-ups.”
+                        </p>
+
+                        <div class="testimonial-author">
+                            <div class="author-avatar">R</div>
+
+                            <div>
+                                <strong>Mrs. Revathi S.</strong>
+                                <span>Patient</span>
+                            </div>
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FAQ
+        ========================== -->
+
+        <section class="section faq-section" id="faq">
+
+            <div class="container faq-grid">
+
+                <div class="section-heading left">
+
+                    <span class="section-label">
+                        FREQUENTLY ASKED QUESTIONS
+                    </span>
+
+                    <h2>
+                        Have questions?
+                        <span>We can help.</span>
+                    </h2>
+
+                    <p>
+                        Find quick answers to common questions about dental
+                        visits and preventive care.
+                    </p>
+
+                </div>
+
+
+                <div class="faq-list">
+
+                    <div class="faq-item">
+
+                        <button class="faq-question">
+                            How often should I visit a dentist?
+                            <span>+</span>
+                        </button>
+
+                        <div class="faq-answer">
+                            <p>
+                                Routine dental check-ups every six months are
+                                recommended for preventive care and
+                                professional cleaning.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <button class="faq-question">
+                            Is teeth cleaning painful?
+                            <span>+</span>
+                        </button>
+
+                        <div class="faq-answer">
+                            <p>
+                                Professional cleaning is generally designed
+                                to be comfortable. Your dentist can guide you
+                                based on your individual oral condition.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <button class="faq-question">
+                            Do you provide orthodontic treatment?
+                            <span>+</span>
+                        </button>
+
+                        <div class="faq-answer">
+                            <p>
+                                Yes. The clinic provides orthodontic treatment,
+                                including braces and aligner-related care.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="faq-item">
+
+                        <button class="faq-question">
+                            What causes tooth sensitivity?
+                            <span>+</span>
+                        </button>
+
+                        <div class="faq-answer">
+                            <p>
+                                Tooth sensitivity can result from enamel wear,
+                                tooth decay, exposed roots or hairline cracks.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CTA
+        ========================== -->
+
+        <section class="cta-section">
+
+            <div class="container cta-inner">
+
+                <div>
+
+                    <span class="section-label">
+                        YOUR SMILE MATTERS
+                    </span>
+
+                    <h2>
+                        Ready to take the next
+                        <span>step?</span>
+                    </h2>
+
+                    <p>
+                        Connect with Sakthi Dental Clinic for compassionate,
+                        expert-led dental care.
+                    </p>
+
+                </div>
+
+                <a href="#contact" class="btn btn-white">
+                    Fix an Appointment
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CONTACT
+        ========================== -->
+
+        <section class="section contact-section" id="contact">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        CONTACT US
+                    </span>
+
+                    <h2>
+                        We would love to
+                        <span>hear from you.</span>
+                    </h2>
+
+                    <p>
+                        Have a question or want to connect with the clinic?
+                        Send us your details and message.
+                    </p>
+
+                </div>
+
+
+                <div class="contact-grid">
+
+                    <div class="contact-form-wrapper">
+
+                        <form id="contactForm" novalidate>
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+
+                                    <label for="name">
+                                        Name *
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Enter your name"
+                                        required
+                                    >
+
+                                    <small class="error-message"></small>
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="email">
+                                        Email *
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="Enter your email"
+                                        required
+                                    >
+
+                                    <small class="error-message"></small>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="phone">
+                                    Phone Number *
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Enter your phone number"
+                                    required
+                                >
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="message">
+                                    Your Message
+                                </label>
+
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    rows="5"
+                                    placeholder="How can we help you?"
+                                ></textarea>
+
+                                <small class="error-message"></small>
+
+                            </div>
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary submit-btn"
+                            >
+                                Submit
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+
+
+                            <p
+                                id="formSuccess"
+                                class="form-success"
+                            ></p>
+
+                        </form>
+
+                    </div>
+
+
+                    <div class="contact-info">
+
+                        <h3>Reach us</h3>
+
+                        <div class="contact-info-item">
+
+                            <div class="contact-icon">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+
+                            <div>
+                                <span>Address</span>
+
+                                <p>
+                                    B2/8, SBM Layout, Anthivadi,
+                                    Hosur, Tamil Nadu 635109, India
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="contact-info-item">
+
+                            <div class="contact-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+
+                            <div>
+                                <span>Email</span>
+
+                                <a href="mailto:info@sakthidentalclinic.in">
+                                    info@sakthidentalclinic.in
+                                </a>
+                            </div>
+
+                        </div>
+
+
+                        <div class="contact-info-item">
+
+                            <div class="contact-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+
+                            <div>
+                                <span>Phone</span>
+
+                                <a href="tel:+919862890897">
+                                    +91 9862890897
+                                </a>
+
+                                <a href="tel:+919363298118">
+                                    +91 9363298118
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="contact-info-item">
+
+                            <div class="contact-icon">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+
+                            <div>
+                                <span>Timings</span>
+
+                                <p>
+                                    Sunday to Saturday<br>
+                                    <strong>9 AM – 7 PM</strong>
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-grid">
+
+            <div class="footer-brand">
+
+                <a href="#home" class="logo">
+                    <span class="logo-icon">
+                        <i class="fa-solid fa-tooth"></i>
+                    </span>
+
+                    <span>
+                        Sakthi
+                        <strong>Dental Clinic</strong>
+                    </span>
+                </a>
+
+                <p>
+                    Specialized dental care for women, children and families
+                    in a comfortable, modern environment.
+                </p>
+
+                <div class="social-links">
+
+                    <a href="#" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a href="#" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a href="#" aria-label="YouTube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+
+                </div>
 
             </div>
 
 
-            <form id="taskForm">
+            <div class="footer-column">
 
-                <input type="hidden" id="taskId">
+                <h4>Quick Links</h4>
 
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#treatments">Treatments</a>
+                <a href="#faq">FAQs</a>
+                <a href="#contact">Contact</a>
 
-                <div class="form-group">
-
-                    <label for="taskTitle">
-                        Task Title
-                    </label>
-
-                    <input
-                        type="text"
-                        id="taskTitle"
-                        placeholder="e.g. Complete DSA practice"
-                        required
-                    >
-
-                </div>
+            </div>
 
 
-                <div class="form-group">
+            <div class="footer-column">
 
-                    <label for="taskDescription">
-                        Description
-                    </label>
+                <h4>Key Treatments</h4>
 
-                    <textarea
-                        id="taskDescription"
-                        rows="4"
-                        placeholder="Add some details..."
-                    ></textarea>
+                <a href="#treatments">Teeth Cleaning</a>
+                <a href="#treatments">Tooth Filling</a>
+                <a href="#treatments">Tooth Extraction</a>
+                <a href="#treatments">Dental Implants</a>
+                <a href="#treatments">Orthodontics</a>
 
-                </div>
+            </div>
 
 
-                <div class="form-row">
+            <div class="footer-column">
 
-                    <div class="form-group">
+                <h4>Contact</h4>
 
-                        <label for="taskPriority">
-                            Priority
-                        </label>
+                <p>
+                    B2/8, SBM Layout,<br>
+                    Anthivadi, Hosur,<br>
+                    Tamil Nadu 635109
+                </p>
 
-                        <select id="taskPriority">
+                <a href="tel:+919862890897">
+                    +91 9862890897
+                </a>
 
-                            <option value="high">High</option>
-                            <option value="medium" selected>Medium</option>
-                            <option value="low">Low</option>
+                <a href="mailto:info@sakthidentalclinic.in">
+                    info@sakthidentalclinic.in
+                </a>
 
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="taskDate">
-                            Due Date
-                        </label>
-
-                        <input
-                            type="date"
-                            id="taskDate"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="modal-actions">
-
-                    <button
-                        type="button"
-                        id="cancelButton"
-                        class="secondary-button"
-                    >
-                        Cancel
-                    </button>
-
-                    <button
-                        type="submit"
-                        class="primary-button"
-                    >
-                        Save Task
-                    </button>
-
-                </div>
-
-            </form>
+            </div>
 
         </div>
 
-    </div>
+
+        <div class="footer-bottom">
+
+            <div class="container">
+
+                <p>
+                    © <span id="year"></span>
+                    Sakthi Dental Clinic. All rights reserved.
+                </p>
+
+                <p>
+                    Designed & developed by
+                    <strong>Shaman Sharma</strong>
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
 
 
     <script src="script.js"></script>
